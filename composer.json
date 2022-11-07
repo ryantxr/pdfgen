@@ -1,0 +1,25 @@
+{
+    "name": "ryantxr/pdfgen",
+    "description": "PDF generation using JSON templates.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ryan Teixeira",
+            "email": "ryantxr@gmail.com"
+        },
+        {
+            "name": "Danielle Cox",
+            "email": "Danielle@campcoxconsultants.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Coxcode\\Pdfgen\\": "src/Coxcode/Pdfgen/"
+        }
+    },
+    "require": {}
+}
