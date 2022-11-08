@@ -26,6 +26,7 @@ class Table  {
      * Making a font size bigger would be a big problem
      */
 	public function setText(string $boxName, $text, $justification = null, $font = null, $color = null)  {
+        (new Log)->debug(__METHOD__);
 		$broken = explode("\n\n", $text);
 
 		$box = $this->boxes[$boxName];

@@ -204,6 +204,7 @@ class Document
      * Set the text for a text box by name
      */
 	public function setText(string $boxName, string $text, $color = null, $justification = null, $font = null)  {
+        (new Log)->debug(__METHOD__);
 		if (isset($this->boxes[$boxName]))  {
 			$box = $this->boxes[$boxName];
 			$box->setText(explode("\n", $text), $justification, $font, $color);
