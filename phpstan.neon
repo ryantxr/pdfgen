@@ -1,0 +1,9 @@
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    level: 3
+    paths:
+        - src
+    ignoreErrors:
+        -
+            message: '#^Variable \$subsetted in isset\(\) is never defined\.$#'
+            path: src/UnofficialFpdfOrg/FPDF.php
