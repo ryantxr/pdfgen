@@ -79,10 +79,14 @@ class Document
 			}
 			$this->boxes[$box['name']] = new TextBox($this->pdf, $box, $fill);
 		}
-		foreach ($imageBoxDefs as $key => $value) {
-			$box = get_object_vars($value);
-			$this->imageBoxes[$box['name']] = new ImageBox($this->pdf, $box, $fill);
-		}
+        if ( ! empty($imageBoxDefs) ) {
+            foreach ($imageBoxDefs as $key => $value) {
+                $box = get_object_vars($value);
+                $this->imageBoxes[$box['name']] = new ImageBox($this->pdf, $box, $fill);
+            }
+        } else {
+            $this->imageBoxes = [];
+        }
 		if (isset($tableDefs)) {
 			foreach ($tableDefs as $tableName => $table)  {
 				$this->tables[$tableName] = new Table();
