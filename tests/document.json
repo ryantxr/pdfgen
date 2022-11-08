@@ -1,0 +1,86 @@
+{
+    "doc": {
+        "defaultFont":{
+            "name": "",
+            "style": "",
+            "size": ""
+        },
+        "lineWidth":"",
+        "orientation" : "", 
+        "unit" : "", 
+        "size" : "",
+        "shade" : {
+            "r" : 0,
+            "g" : 0,
+            "b" : 0
+        }
+    },
+    "images" : [
+        {
+            "file": "some_file_name",
+            "x": 1,
+            "y": 1,
+            "xConstraint": 1,
+            "yConstraint": 1
+        }
+    ],
+    "labels" : [
+        {
+            "x":0,
+            "y":0,
+            "value":"_",
+            "replace": "_",
+            "font": {
+                "name": "",
+                "style": "",
+                "size": "",
+                "color":{
+                    "r":0,
+                    "g":0,
+                    "b":0
+                }
+            }
+        }
+    ],
+    "lines" : [
+        {
+            "file": "",
+            "x": "",
+            "xConstraint": "",
+            "yConstraint": ""
+        }
+    ],
+    "boxes" : [
+        {
+            "name": "head",
+            "font" : {
+                "name": "",
+                "style": "",
+                "size": ""
+            }
+        }
+    ],
+    "imageBoxes" : {},
+    "tables": {
+        "table1": {
+            "name": "table_1",
+            "font": {
+                "name": "",
+                "style": "",
+                "size": ""
+            },
+            "dblSpace": false
+        },
+        "table2": {
+            "name": "table_2",
+            "font": {
+                "name": "",
+                "style": "",
+                "size": ""
+            },
+            "dblSpace": false
+        }
+    },
+
+    "":""
+}
