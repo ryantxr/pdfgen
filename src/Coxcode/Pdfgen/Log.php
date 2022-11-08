@@ -8,6 +8,11 @@ class Log implements LoggerInterface
 {
     public static $log = null;
     
+    public static function init(LoggerInterface $log)
+    {
+        self::$log = $log;
+    }
+
     /**
      * System is unusable.
      *
@@ -17,9 +22,9 @@ class Log implements LoggerInterface
      */
     public function emergency($message, array $context = array())
     {
-
+        if ( self::$log ) self::$log->emergency($message, $context);
     }
-
+    
     /**
      * Action must be taken immediately.
      *
@@ -32,9 +37,10 @@ class Log implements LoggerInterface
      */
     public function alert($message, array $context = array())
     {
-
+        if ( self::$log ) self::$log->alert($message, $context);
+        
     }
-
+    
     /**
      * Critical conditions.
      *
@@ -46,9 +52,10 @@ class Log implements LoggerInterface
      */
     public function critical($message, array $context = array())
     {
-
+        if ( self::$log ) self::$log->critical($message, $context);
+        
     }
-
+    
     /**
      * Runtime errors that do not require immediate action but should typically
      * be logged and monitored.
@@ -59,9 +66,10 @@ class Log implements LoggerInterface
      */
     public function error($message, array $context = array())
     {
-
+        if ( self::$log ) self::$log->error($message, $context);
+        
     }
-
+    
     /**
      * Exceptional occurrences that are not errors.
      *
@@ -74,9 +82,10 @@ class Log implements LoggerInterface
      */
     public function warning($message, array $context = array())
     {
-
+        if ( self::$log ) self::$log->warning($message, $context);
+        
     }
-
+    
     /**
      * Normal but significant events.
      *
@@ -86,9 +95,10 @@ class Log implements LoggerInterface
      */
     public function notice($message, array $context = array())
     {
-
+        if ( self::$log ) self::$log->notice($message, $context);
+        
     }
-
+    
     /**
      * Interesting events.
      *
@@ -100,9 +110,10 @@ class Log implements LoggerInterface
      */
     public function info($message, array $context = array())
     {
-
+        if ( self::$log ) self::$log->info($message, $context);
+        
     }
-
+    
     /**
      * Detailed debug information.
      *
@@ -112,9 +123,10 @@ class Log implements LoggerInterface
      */
     public function debug($message, array $context = array())
     {
-
+        if ( self::$log ) self::$log->debug($message, $context);
+        
     }
-
+    
     /**
      * Logs with an arbitrary level.
      *
@@ -125,7 +137,8 @@ class Log implements LoggerInterface
      */
     public function log($level, $message, array $context = array())
     {
-
+        if ( self::$log ) self::$log->log($level, $message, $context);
+        
     }
 
 

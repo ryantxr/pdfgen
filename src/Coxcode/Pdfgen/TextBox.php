@@ -4,17 +4,17 @@ namespace Coxcode\Pdfgen;
 // Need fpdf to have been included
 
 class TextBox  {
-    private $pdf;
+    public $pdf;
     /** @var int */
-    private $x;
+    public $x;
     /** @var int */
-    private $y;
+    public $y;
     /** @var int */
-    private $sizeX;
+    public $sizeX;
     /** @var int */
-    private $sizeY;
-    private $font;
-    private $rows;
+    public $sizeY;
+    public $font;
+    public $rows;
     public $justification ;
     public $color ;
     public $page ;

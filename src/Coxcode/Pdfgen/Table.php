@@ -4,7 +4,7 @@ namespace Coxcode\Pdfgen;
 class Table  {
 	public $numRows = 0;
 	private $sizeLines = 100000;  // Just using a large value
-    private $boxes;
+    public $boxes;
     private $rows;
     private $lines;
     private $whichPage;
