@@ -121,7 +121,7 @@ class TextBox  {
 
             	$justification = ($row->justification == null) ? $this->justification : $row->justification;
 
-				switch ($row->justification) {
+				switch ($justification) {
 					default:
 					case 'L':
 						// The left needs nothing
