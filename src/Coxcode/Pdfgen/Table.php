@@ -5,8 +5,8 @@ class Table  {
 	public $numRows = 0;
 	private $sizeLines = 100000;  // Just using a large value
     public $boxes;
-    private $rows;
-    private $lines;
+    public $rows;
+    public $lines;
     private $whichPage;
     public $dblSpace;
 
