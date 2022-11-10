@@ -1,10 +1,13 @@
 <?php
 namespace Coxcode\Pdfgen;
 
+use UnofficialFpdfOrg\FPDF;
+
 // Need fpdf to have been included
 
 class TextBox  {
-    public $pdf;
+    /** @var Context */
+    public $context;
     /** @var int */
     public $x;
     /** @var int */
@@ -24,8 +27,8 @@ class TextBox  {
     public $maxDeltX ;
     public $maxDeltY ;
 
-	public function __construct($pdf, $params, $shade = null)  {
-		$this->pdf = $pdf;
+	public function __construct(Context $context, $params, ?bool $shade = false)  {
+		$this->context = $context;
 		$this->x = $params['x'];
 		$this->y = $params['y'];
 		$this->sizeX = $params['sizeX'] ?? 0;
@@ -43,6 +46,23 @@ class TextBox  {
 		$this->maxDeltY = 0;
 	}
 
+	/**
+	 * @return FPDF
+	 */
+	public function pdf() : FPDF
+	{
+		return $this->context->pdf;
+	}
+
+	/**
+	 * return the context
+	 * @return Context
+	 */
+	public function getContext() : Context
+	{
+		return $this->context;
+	}
+
 	public function setColor($color)  {
 		$this->color = $color;
 	}
@@ -58,7 +78,7 @@ class TextBox  {
 		}
         $multiPage = null;
 		foreach ( $rows as $key => $row ) {
-			$this->pdf->SetFont($row->font['name'], $row->font['style'], $row->font['size']);
+			$this->context->pdf->SetFont($row->font['name'], $row->font['style'], $row->font['size']);
 			$notBlack = false;
 
 			$color = null;
@@ -70,7 +90,7 @@ class TextBox  {
 			}
 
 			if ($color)  {
-				$this->pdf->SetTextColor($color['red'], $color['green'], $color['blue']);
+				$this->context->pdf->SetTextColor($color['red'], $color['green'], $color['blue']);
 				$notBlack = true;
 			}
 
@@ -113,7 +133,7 @@ class TextBox  {
 				}
 				$linesPrinted++;
 
-				$strLength = $this->pdf->GetStringWidth($line);
+				$strLength = $this->context->pdf->GetStringWidth($line);
 				if ($strLength >= $this->sizeX)  {
                 	// We have an error
                 	$line = 'error';
@@ -137,8 +157,8 @@ class TextBox  {
 
 				}
 
-				$this->pdf->SetXY($this->x + $this->deltX, $this->y + $this->deltY);
-				$this->pdf->write($fontSize, $line);
+				$this->context->pdf->SetXY($this->x + $this->deltX, $this->y + $this->deltY);
+				$this->context->pdf->write($fontSize, $line);
 
 				$this->deltX = 0;
 				$this->deltY += $this->maxDeltY + 2;
@@ -150,7 +170,7 @@ class TextBox  {
 			}
 
 			if ( $notBlack )  {
-				$this->pdf->SetTextColor(0, 0, 0);
+				$this->context->pdf->SetTextColor(0, 0, 0);
 			}
 		}
 
@@ -162,15 +182,15 @@ class TextBox  {
 			$useFont = $this->font;
 		}
 
-		$row = new Row($this->pdf, $text, $this->sizeX, $useFont, true, $justification, $color);
+		$row = new Row($this->context, $text, $this->sizeX, $useFont, true, $justification, $color);
 		$this->rows[] = $row;
 
 	}
 
-	public function clear($pdf)  {
+	public function clear($context)  {
 		$this->rows = null;
 		//  Why did I do this?
-		// $this->pdf = $pdf;
+		// $this->context = $context;
 	}
 
     /**
@@ -184,8 +204,9 @@ class TextBox  {
 
 	public function newPage()  {
 		if ($this->shade)  {
-			$this->pdf->SetXY($this->x + 2, $this->y);
-			$this->pdf->Cell($this->sizeX, $this->sizeY, '', 0, 0, '', true);
+			
+			$this->context->pdf->SetXY($this->x + 2, $this->y);
+			$this->context->pdf->Cell($this->sizeX, $this->sizeY, '', 0, 0, '', true);
 		}		
 		$this->maxDeltY = 0;
 		$this->deltX = $this->deltY = 0;

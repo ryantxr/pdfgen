@@ -36,7 +36,7 @@ class Table  {
 		}
 
 		foreach ($broken as $row) {
-			$this->rows[$boxName][] = new Row($box->pdf, explode("\n", $row), $box->sizeX, $font, false, $justification, $color);
+			$this->rows[$boxName][] = new Row($box->getContext(), explode("\n", $row), $box->sizeX, $font, false, $justification, $color);
 			// Tracking total number of rows to keep rows lined up
 			if (count($this->rows[$boxName]) > $this->numRows)  {
 				$this->numRows++;
@@ -47,11 +47,11 @@ class Table  {
     /**
      * 
      */
-	public function clear($pdf)  {
+	public function clear($context)  {
 		unset($this->rows);
 		$this->numRows = 0;
 		foreach ($this->boxes as $box)  {
-			$box->clear($pdf);
+			$box->clear($context);
 		}
 	}
 

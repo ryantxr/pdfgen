@@ -5,7 +5,8 @@ namespace Coxcode\Pdfgen;
 
 class Row  {
 
-    public $pdf ;
+	/** @var Context */
+    public $context ;
     public $text ;
     public $font ;
     public $linesPrinted ;
@@ -14,8 +15,8 @@ class Row  {
     public $justification ;
 
 
-	public function __construct($pdf, $text, $width, $font, $shrink = true, $justification = null, $color = null)  {
-		$this->pdf = $pdf;
+	public function __construct(Context $context, $text, $width, $font, $shrink = true, $justification = null, $color = null)  {
+		$this->context = $context;
 		$this->text = $text;
 		$this->font = $font;
 		$this->linesPrinted = 0;
@@ -36,25 +37,25 @@ class Row  {
 	}
 
 	public function forceFit($text, $width)  {
-		$this->pdf->SetFont($this->font['name'], $this->font['style'], $this->font['size']);
+		$this->context->pdf->SetFont($this->font['name'], $this->font['style'], $this->font['size']);
 		// This only makes sense for one line rows but we should not crash if there are multiples
 
 		foreach ($text as $line) {
-			$length = $this->pdf->GetStringWidth($line);
+			$length = $this->context->pdf->GetStringWidth($line);
 			while ($length >= $width)  {
 				$this->font['size'] -= 0.5;
-				$this->pdf->SetFont($this->font['name'], $this->font['style'], $this->font['size']);
-				$length = $this->pdf->GetStringWidth($line);
+				$this->context->pdf->SetFont($this->font['name'], $this->font['style'], $this->font['size']);
+				$length = $this->context->pdf->GetStringWidth($line);
 			}
 		}
 	}
 
 	public function wrapWords($text, $width)  {
-		$this->pdf->SetFont($this->font['name'], $this->font['style'], $this->font['size']);
+		$this->context->pdf->SetFont($this->font['name'], $this->font['style'], $this->font['size']);
 
 		$wrapped = [];
 		foreach ($text as $line) {
-			$length = $this->pdf->GetStringWidth($line);
+			$length = $this->context->pdf->GetStringWidth($line);
 			if ($length >= $width)  {
 				$wrapped = array_merge($wrapped, $this->doWrap($line, $width));
 			} else  {
@@ -68,19 +69,19 @@ class Row  {
 	private function doWrap($line, $width)  {
 		$words = explode(' ', $line);
 
-		$x = $this->pdf->GetStringWidth($words[0]);
+		$x = $this->context->pdf->GetStringWidth($words[0]);
 		$wrapped[0] = $words[0];
 		$lines=0;
 
 		for ($word = 1; $word < count($words); $word++)  {
-			$nextX = $this->pdf->GetStringWidth(' ' . $words[$word]);
+			$nextX = $this->context->pdf->GetStringWidth(' ' . $words[$word]);
 			if (($x + $nextX) < $width)  {
 				$wrapped[$lines] .= ' ' . $words[$word];
 				$x += $nextX;
 				continue;
 			}
 
-			$x = $this->pdf->GetStringWidth($words[$word]);
+			$x = $this->context->pdf->GetStringWidth($words[$word]);
 			$wrapped[++$lines] = $words[$word];
 		}
 		return $wrapped;

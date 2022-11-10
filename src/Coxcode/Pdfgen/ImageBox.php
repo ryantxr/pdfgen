@@ -4,8 +4,8 @@ namespace Coxcode\Pdfgen;
 // Need fpdf to have been included
 
 class ImageBox  {
-
-    public $pdf;
+	/** @var \StdClass */
+    public $context;
     public $x;
     public $y;
     public $xConstraint;
@@ -15,8 +15,8 @@ class ImageBox  {
     public $shade;
 
 
-	public function __construct($pdf, $params, $shade = null)  {
-		$this->pdf = $pdf;
+	public function __construct(Context $context, $params, $shade = null)  {
+		$this->context = $context;
 		$this->x = $params['x'];
 		$this->y = $params['y'];
 		$this->xConstraint = $params['xConstraint'];
@@ -26,8 +26,8 @@ class ImageBox  {
 	}
 
 	public function write($image)  {
-		$this->pdf->SetXY($this->x, $this->y);
-		$this->pdf->image($image, $this->x, $this->y, $this->xConstraint, $this->yConstraint);
+		$this->context->pdf->SetXY($this->x, $this->y);
+		$this->context->pdf->image($image, $this->x, $this->y, $this->xConstraint, $this->yConstraint);
 
 		return true;  // return false if field won't fit
 	}
@@ -36,9 +36,9 @@ class ImageBox  {
 		$this->image = $image;
 	}
 
-	public function clear($pdf)  {
+	public function clear($context)  {
 		unset($this->image);
-		$this->pdf = $pdf;
+		$this->context = $context;
 	}
 
 	public function newPage()  {
