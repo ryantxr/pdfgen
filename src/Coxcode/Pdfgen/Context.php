@@ -8,7 +8,7 @@ class Context
     public $pdf;
 
     /** @var \StdClass */
-    public $object;
+    public $object; // the entire document after it was decoded from json
 
     protected $currentDrawColor;
     protected $drawColorStack = [];
